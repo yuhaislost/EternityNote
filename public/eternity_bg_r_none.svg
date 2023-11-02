@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297" height="297" viewBox="0 0 297 297">
+  <g id="Eternity_Bg_Rect_Rounded" transform="translate(-850 -506)">
+    <rect id="Background" width="297" height="297" rx="50" transform="translate(850 506)" fill="#fff"/>
+    <path id="Stem" d="M52.264,376.773h-40.5c-1.241,0-2.25-1.423-2.25-3.173V205.8c4.323,5.928,9.682,9.061,15.5,9.061h0c5.812,0,11.988-3.167,17.863-9.157L54.513,193.84V373.6C54.513,375.349,53.5,376.773,52.264,376.773Z" transform="translate(906.487 360.194)"/>
+    <path id="upper_rect" d="M0,0H74A20,20,0,0,1,94,20V33a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(978 582)"/>
+    <path id="lower_rect" d="M0,0H94a0,0,0,0,1,0,0V13A20,20,0,0,1,74,33H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(978 704)"/>
+    <path id="middle_rect" d="M48.259,101H-41V68H48.259a28.514,28.514,0,0,0,0,33v0h0Z" transform="translate(1019 576)"/>
+  </g>
+</svg>
