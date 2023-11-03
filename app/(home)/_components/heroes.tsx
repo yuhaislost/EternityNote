@@ -5,7 +5,7 @@ export const Heroes = function()
     return(
         <div className='flex flex-col items-center justify-center max-w-5xl'>
             <div className='flex items-center'>
-                <div className='relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]'>
+                <div className='relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px]'>
                     <Image src={'https://illustrations.popsy.co/white/studying.svg'} className='object-contain dark:hidden' fill alt='think'/>
                     <Image src={'/v_study_mdark.svg'} className='object-contain hidden dark:block' fill alt='think'/>
                 </div>

@@ -2,8 +2,16 @@
 import {Button} from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
+import { useConvexAuth } from 'convex/react';
+import { SignInButton } from '@clerk/clerk-react';
+
+import Link from 'next/link';
+
+
 const Heading = function()
 {
+    const { isAuthenticated, isLoading} = useConvexAuth();
+
     return(
         <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
@@ -13,10 +21,24 @@ const Heading = function()
                 Eternity a digital workspace where<br/>
                 a business is run with one button.
             </h3>
-            <Button>
-                Dive into Eternity
-                <ArrowRight className='h-4 w-4 ml-4'/>
-            </Button>
+            {isAuthenticated && !isLoading && (
+                <Button className='group' asChild>
+                    <Link href={'/documents'}>
+                        Dive into Eternity
+                        <ArrowRight className='h-4 w-4 ml-4 group-hover:translate-x-1 transition'/>
+                    </Link>
+                </Button>
+            )}
+            {!isAuthenticated && !isLoading &&(
+                <>
+                    <SignInButton>
+                        <Button className='group'>
+                            Dive into Eternity
+                            <ArrowRight className='h-4 w-4 ml-4 group-hover:translate-x-1 transition'/>
+                        </Button>
+                    </SignInButton>
+                </>
+            )}
         </div>
     )
 }
