@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { useConvexAuth } from 'convex/react';
 import { SignInButton, UserButton } from '@clerk/clerk-react';
 import { Spinner } from "@/components/spinner";
+import { routes } from '@/lib/constants';
 
 export const Navbar = function()
 {
@@ -25,10 +26,10 @@ export const Navbar = function()
                 {isLoading && (<Spinner/>)}
                 {!isAuthenticated && !isLoading && (
                     <>
-                        <SignInButton mode="modal">
+                        <SignInButton mode="modal" afterSignInUrl={routes.Dashboard}>
                             <Button variant={'ghost'} size={'sm'}>Log In</Button>
                         </SignInButton>
-                        <SignInButton mode="modal">
+                        <SignInButton mode="modal" afterSignInUrl={routes.Dashboard}>
                             <Button  className="hidden md:block" size={'sm'}>Hop into Eternity</Button>
                         </SignInButton>
                     </>
@@ -36,7 +37,7 @@ export const Navbar = function()
                 {isAuthenticated && !isLoading && (
                     <>
                         <Button size="sm" asChild>
-                            <Link href="/documents">
+                            <Link href={routes.Dashboard}>
                                 Enter Eternity
                             </Link>
                         </Button>

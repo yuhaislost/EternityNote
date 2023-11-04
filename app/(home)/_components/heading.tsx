@@ -6,6 +6,7 @@ import { useConvexAuth } from 'convex/react';
 import { SignInButton } from '@clerk/clerk-react';
 
 import Link from 'next/link';
+import { routes } from '@/lib/constants';
 
 
 const Heading = function()
@@ -23,7 +24,7 @@ const Heading = function()
             </h3>
             {isAuthenticated && !isLoading && (
                 <Button className='group' asChild>
-                    <Link href={'/documents'}>
+                    <Link href={routes.Dashboard}>
                         Dive into Eternity
                         <ArrowRight className='h-4 w-4 ml-4 group-hover:translate-x-1 transition'/>
                     </Link>
@@ -31,7 +32,7 @@ const Heading = function()
             )}
             {!isAuthenticated && !isLoading &&(
                 <>
-                    <SignInButton>
+                    <SignInButton afterSignInUrl={routes.Dashboard}>
                         <Button className='group'>
                             Dive into Eternity
                             <ArrowRight className='h-4 w-4 ml-4 group-hover:translate-x-1 transition'/>
