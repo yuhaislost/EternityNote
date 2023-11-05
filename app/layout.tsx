@@ -38,7 +38,7 @@ export default function RootLayout({
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange
           storageKey='eternity-theme'
           >
-            <Toaster position='top-center'/>
+            <Toaster position='bottom-center'/>
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
