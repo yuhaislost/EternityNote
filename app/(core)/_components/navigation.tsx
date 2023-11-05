@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import { ChevronLeft, MenuIcon, Plus, PlusCircle, Search, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRef, ElementRef, useState, useEffect } from "react";
 import { useMediaQuery } from 'usehooks-ts';
@@ -14,7 +14,6 @@ import { api } from "@/convex/_generated/api";
 import { Item } from './item';
 import { toast } from 'sonner';
 import { DocumentList } from "./document-list";
-
 
 export const Navigation = function()
 {
@@ -133,7 +132,8 @@ export const Navigation = function()
                     <Item onClick={handleCreate} label="New Page" icon={PlusCircle}/>
                 </div>
                 <div className="mt-4">
-                    <DocumentList initial={true}/>
+                    <DocumentList/>
+                    <Item onClick={handleCreate} icon={Plus} label="Add a page"/>
                 </div>
                 <div 
                 onMouseDown={handleMouseDown}

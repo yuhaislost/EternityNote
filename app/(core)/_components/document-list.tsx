@@ -14,11 +14,10 @@ import { FileIcon } from 'lucide-react';
 interface DocumentListProps{
     parentDocumentId?: Id<"documents">;
     level?: number;
-    initial?: boolean
     data?: Doc<"documents">[];
 };
 
-export const DocumentList = function({parentDocumentId, level=0, initial = false} : DocumentListProps)
+export const DocumentList = function({parentDocumentId, level=0} : DocumentListProps)
 {
     const params = useParams();
     const router = useRouter();
@@ -40,7 +39,7 @@ export const DocumentList = function({parentDocumentId, level=0, initial = false
         router.push(`/dashboard/${documentId}`);
     };
 
-    if (initial && (documents?.length === 0 || documents === undefined))
+    if (documents === undefined)
     {
         return (
             <>
@@ -66,7 +65,7 @@ export const DocumentList = function({parentDocumentId, level=0, initial = false
             >
                 No pages inside
             </p>
-            {documents?.map((document) => (
+            {documents.map((document) => (
                 <div key={document._id}>
                     <Item id={document._id} onClick={()=>onRedirect(document._id)} label={document.title} icon={FileIcon} documentIcon={document.icon} active={params.documentId === document._id} level={level} onExpand={()=>onExpand(document._id)} expanded={expanded[document._id]}/>
                     {expanded[document._id] && (
