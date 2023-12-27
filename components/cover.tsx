@@ -13,8 +13,10 @@ import { useEdgeStore } from "@/lib/edgestore";
 import { Skeleton } from "./ui/skeleton";
 
 interface CoverProps{
+
     url?: string;
     preview?: boolean;
+    
 };
 
 const Cover = function({ url, preview } : CoverProps)
