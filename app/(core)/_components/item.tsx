@@ -23,7 +23,7 @@ interface ItemProps {
     level?: number;
     onExpand?: () => void;
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
     icon: LucideIcon;
 };
 
@@ -51,7 +51,7 @@ export const Item = function({id, documentIcon, active, expanded, isSearch, leve
             {
                 onExpand?.();
             }
-            // router.push(`/dashboard/${documentId}`);
+            router.push(`/dashboard/${documentId}`);
         });
 
         toast.promise(promise,{
@@ -77,6 +77,7 @@ export const Item = function({id, documentIcon, active, expanded, isSearch, leve
     };
 
     const ChevronIcon = expanded ? ChevronDown : ChevronRight;
+
     return(
         <div onClick={onClick} role="button" style={{paddingLeft: level ? `${(level * 12) + 12}px`:'12px'}} 
         className={cn(
@@ -85,7 +86,7 @@ export const Item = function({id, documentIcon, active, expanded, isSearch, leve
             )}
         >
             {!!id && (
-            <div role="button" className="h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 mr-1"
+            <div role="button" className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
             onClick={handleExpand}
             >
                 <ChevronIcon className="h-4 w-4 shrin-0 text-muted-foreground/50"/>
@@ -97,7 +98,7 @@ export const Item = function({id, documentIcon, active, expanded, isSearch, leve
             ) : (
             
             <div>
-                <Icon className="shrink-0 h-[18px] mr-2"/>
+                <Icon className="shrink-0 h-[18px] w-[18px] mr-2"/>
             </div>
             )}
 

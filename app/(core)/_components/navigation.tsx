@@ -1,7 +1,7 @@
 "use client";
 
-import { ChevronLeft, MenuIcon, Plus, PlusCircle, Search, Settings } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { ChevronLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
+import { useParams, usePathname } from "next/navigation";
 import { useRef, ElementRef, useState, useEffect } from "react";
 import { useMediaQuery } from 'usehooks-ts';
 
@@ -14,13 +14,23 @@ import { api } from "@/convex/_generated/api";
 import { Item } from './item';
 import { toast } from 'sonner';
 import { DocumentList } from "./document-list";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import Trashbox from "./trash-box";
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
+import { Navbar } from "./navbar";
+import { useRouter } from "next/navigation";
 
 export const Navigation = function()
 {
     const pathname = usePathname();
+    const params = useParams();
+    const router = useRouter();
     const isMobile = useMediaQuery("(max-width: 768px");
 
     const create = useMutation(api.documents.create);
+    const search = useSearch();
+    const settings = useSettings();
 
     const isResizingRef = useRef(false);
     const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -104,15 +114,17 @@ export const Navigation = function()
         }
     }
 
-    const handleCreate = function()
+    const handleCreate = async function()
     {
-        const promise = create({ title: "Untitled"});
+        const promise = create({ title: "Untitled"})
+        .then((documentId) => router.push(`/dashboard/${documentId}`))
 
         toast.promise(promise, {
             loading: 'Creating a new note...',
-            success: "New note created!",
+            success: 'Created a note!',
             error: "Failed to create note."
         });
+
     }
 
     return(
@@ -127,13 +139,21 @@ export const Navigation = function()
                 </div>
                 <div>
                     <UserItem/>
-                    <Item label="Search" icon={Search} isSearch onClick={()=>{}}/>
-                    <Item label="Settings" icon={Settings} onClick={()=>{}}/>
+                    <Item label="Search" icon={Search} isSearch onClick={search.onOpen}/>
+                    <Item label="Settings" icon={Settings} onClick={settings.onOpen}/>
                     <Item onClick={handleCreate} label="New Page" icon={PlusCircle}/>
                 </div>
                 <div className="mt-4">
                     <DocumentList/>
                     <Item onClick={handleCreate} icon={Plus} label="Add a page"/>
+                    <Popover>
+                        <PopoverTrigger className="w-full mt-4">
+                            <Item label="Trash" icon={Trash}/>
+                        </PopoverTrigger>
+                        <PopoverContent className="p-0 w-72" side={isMobile ? "bottom" : "right"}>
+                            <Trashbox/>
+                        </PopoverContent>
+                    </Popover>
                 </div>
                 <div 
                 onMouseDown={handleMouseDown}
@@ -143,9 +163,13 @@ export const Navigation = function()
             <div ref={navbarRef} className={cn("absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]",
             isResetting && "transition-all ease-in-out duration-300", isMobile && "left-0 w-full"
             )}>
-                <nav className="bg-transparent px-3 py-2 w-full">
-                    {isCollapsed && <MenuIcon role="button" onClick={resetWidth} className="h-6 w-6 text-muted-foreground"/>}
-                </nav>
+                {!!params.documentId ? (
+                    <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth}/>
+                ): (
+                    <nav className="bg-transparent px-3 py-2 w-full">
+                        {isCollapsed && <MenuIcon role="button" onClick={resetWidth} className="h-6 w-6 text-muted-foreground"/>}
+                    </nav>
+                )}
             </div>
         </>
     );

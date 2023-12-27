@@ -78,3 +78,21 @@ html,body, :root{
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50%{
+    transform: translateY(-5px);
+  }
+
+  100%{
+    transform: translateY(0)
+  }
+}
+
+.textfloat{
+  animation: infinite float 2s ease-in-out
+}
